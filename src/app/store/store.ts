@@ -1,27 +1,10 @@
-// import { configureStore } from "@reduxjs/toolkit"
-// import { todosReducer } from "../../../entities/Todos"
-
-import { CombinedState, ReducersMapObject, configureStore } from "@reduxjs/toolkit";
-import { TodosSchema, todosReducer } from "../../../entities/Todos";
+import { ReducersMapObject, configureStore } from "@reduxjs/toolkit";
+import { TodosSchema, todosReducer } from "../../entities/Todos";
 import { AxiosInstance } from "axios";
-import { $api } from "../../../shared/api/api";
+import { $api } from "../../shared/api/api";
 import { useDispatch } from "react-redux";
+import { ModalSchema, modalReducer } from "../../entities/TodoModal";
 
-// const store = configureStore({
-//     reducer: {
-//         lists: todosReducer,
-//         // config: configReducer,
-//         // modals: modalsReducer
-//     }
-// })
-
-// export default store
-
-// export type RootState = ReturnType<typeof store.getState>
-
-export interface StateSchema {
-    todos: TodosSchema
-}
 
 export interface ThunkExtraArg {
     api: AxiosInstance;
@@ -33,12 +16,23 @@ export interface ThunkConfig<T> {
     state: StateSchema;
 }
 
+/*
+* important add state schema for types state
+*/
+
+export interface StateSchema {
+    todos: TodosSchema
+    modals: ModalSchema
+}
+
+
 export function createReduxStore(
     initialState?: StateSchema,
     asyncReducers?: ReducersMapObject<StateSchema>,
 ) {
     const rootReducers: ReducersMapObject<StateSchema> = {
         todos: todosReducer,
+        modals: modalReducer
     };
 
 

@@ -2,7 +2,7 @@ import { memo, useEffect } from 'react';
 import cls from './Board.module.scss';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { TodosList } from '../TodosList/TodosList';
-import { useAppDispatch } from '../../../../app/provider/store/store';
+import { useAppDispatch } from '../../../../app/store/store';
 import { useSelector } from 'react-redux';
 import { getTodosList } from '../../model/selectors/getTodos';
 import { todosActions } from '../../model/slices/todosSlice';
