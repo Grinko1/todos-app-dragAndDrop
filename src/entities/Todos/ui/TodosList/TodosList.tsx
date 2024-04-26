@@ -13,7 +13,7 @@ interface TodosListProps {
 
 export const TodosList = memo((props: TodosListProps) => {
     const { listIndex = 0, data } = props
-    console.log(data);
+    // console.log(data);
 
     const handleIcon = () => {
         const Icons = [<FaRegClock size={20} />, <FaPencilAlt size={20} />, <FaCheck size={20} />]

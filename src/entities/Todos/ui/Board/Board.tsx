@@ -20,7 +20,6 @@ export const Board = memo((props: BoardProps) => {
 
     const handleDropEnd = (result: any) => {
         const { destination, source } = result
-        console.log(result);
 
         if (destination) {
             dispatch(todosActions.moveCard({

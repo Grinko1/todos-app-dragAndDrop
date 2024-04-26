@@ -3,6 +3,7 @@ import cls from './EditTodoModal.module.scss';
 import { useAppDispatch } from '../../../../app/store/store';
 import { edit, todosActions } from '../../../Todos';
 import { TodoModal } from '../TodoModal/TodoModal';
+import { modalActions } from '../../model/slices/modelSlice';
 
 interface EditTodoModalProps {
 }
@@ -13,7 +14,7 @@ export const EditTodoModal = memo((props: EditTodoModalProps) => {
 
 
     const closeEditModal = () => {
-        dispatch(todosActions.editTodo(edit.value))
+        dispatch(modalActions.editModal(edit.value))
     }
 
     const onSave = (value: string) => {
@@ -22,14 +23,13 @@ export const EditTodoModal = memo((props: EditTodoModalProps) => {
             closeEditModal();
         }
     };
+    ;
+    const buttons = ["Сохранить"];
 
-    const buttons = [
-        { label: 'Save', onClick: onSave }
-    ];
 
     return (
         <TodoModal
-            title="edit item"
+            title="Редактировать"
             initialValue={edit.value}
             onSave={onSave}
             onClose={closeEditModal}

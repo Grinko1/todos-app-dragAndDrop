@@ -39,6 +39,7 @@ export const todosSlice = createSlice({
     reducers: {
         // LISTS HANDLERS -----------------------
         addNewTodo: (state, { payload }) => {
+            console.log(payload);
             { state.todoList[payload.index].todos.push({ id: 1, title: payload.value }) }
             // localStorage.setItem('@lists', JSON.stringify({ ...state }))
         },

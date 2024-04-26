@@ -1,3 +1,5 @@
+export { NewTodoModal } from "./ui/NewTodoModal/NewTodoModal"
+
 export { EditTodoModal } from "./ui/EditTodoModal/EditTodoModal"
 
 export { getTodosModals } from "./model/selectors/getTodosModals"
