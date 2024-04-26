@@ -1,0 +1,68 @@
+:root {
+    --background1: #ffffff;
+    --background2: #000000;
+    --glassColor: #ffffff;
+    --color: #000000;
+    --opacity: 0.5;
+
+    --background: linear-gradient(220deg, var(--background1) 10%, var(--background2) 90%) fixed;
+    --glass: rgba(#{str-slice(var(--glassColor), -6, -4)}, #{str-slice(var(--glassColor), -4, -2)}, #{str-slice(var(--glassColor), -2)}, 0.5); // Use opacity directly here
+    --glassOpacity: 50%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    background: var(--background);
+}
+
+body,
+button,
+p,
+input {
+    font-family: 'roboto', sans-serif;
+    font-size: 14px;
+    color: var(--color);
+    -webkit-font-smoothing: antialiased !important;
+}
+
+.App {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button,
+input {
+    border-radius: 0.75rem;
+    border: none;
+    outline: none;
+    background: var(--background);
+    filter: brightness(1.05);
+}
+
+header,
+footer {
+    filter: brightness(1.2);
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(1.5);
+}
+
+ul {
+    list-style: none;
+}
