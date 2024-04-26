@@ -5,6 +5,7 @@ import { ModalSchema } from '../types/modal'
 
 
 
+
 const initialState: ModalSchema = {
     newTodoModal: false,
     editTodoModal: false,
