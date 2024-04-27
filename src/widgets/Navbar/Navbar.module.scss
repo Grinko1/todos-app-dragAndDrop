@@ -1,0 +1,25 @@
+.Navbar {
+    height: 85px;
+    border-bottom: 1px solid var(--color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    .leftPart {
+        button {
+            font-size: 18px;
+            padding: 10px;
+        }
+    }
+
+    .rightPart {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        button {
+            padding: 10px;
+        }
+    }
+}

@@ -1,14 +1,34 @@
-:root {
-    --background1: #ffffff;
-    --background2: #000000;
-    --glassColor: #ffffff;
-    --color: #000000;
-    --opacity: 0.5;
+// :root {
+//     --background1: #00c8ff;
+//     --background2: #b300ff;
+//     --glassColor: #000000;
+//     --color: #ffffff;
+//     --opacity: 0.4;
 
-    --background: linear-gradient(220deg, var(--background1) 10%, var(--background2) 90%) fixed;
-    --glass: rgba(#{str-slice(var(--glassColor), -6, -4)}, #{str-slice(var(--glassColor), -4, -2)}, #{str-slice(var(--glassColor), -2)}, 0.5); // Use opacity directly here
-    --glassOpacity: 50%;
-}
+//     --background: linear-gradient(220deg, var(--background1) 5%, var(--background2) 90%) fixed;
+//     --glass: rgba(#{str-slice(var(--glassColor), -6, -4)}, #{str-slice(var(--glassColor), -4, -2)}, #{str-slice(var(--glassColor), -2)}, 0.5); // Use opacity directly here
+//     --glassOpacity: 50%;
+// }
+// :root {
+//     --background-dark: #151515;
+//     --color: #b7b4b4;
+//     --color-dark: #342d34;
+//     --opacity: 0.4;
+//     --background: #1d1b1b;
+//     --scroll-color: #fff5;
+// }
+
+// :root {
+//     --background-dark: #c2c2c2;
+//     --color: #483131;
+//     --color-dark: #c1c1c1;
+//     --opacity: 0.4;
+//     --background: #ededed;
+//     --scroll-color: #d0d0d0;
+// }
+
+@import "./dark-theme.scss";
+@import "./light-theme.scss";
 
 * {
     margin: 0;
@@ -20,7 +40,8 @@
 html,
 body,
 #root {
-    height: 100%;
+    height: 100vh;
+    overflow: hidden;
     background: var(--background);
 }
 
@@ -57,10 +78,12 @@ footer {
 
 button {
     cursor: pointer;
+    transition: 0.1s;
 }
 
 button:hover {
     filter: brightness(1.5);
+    font-weight: bold;
 }
 
 ul {

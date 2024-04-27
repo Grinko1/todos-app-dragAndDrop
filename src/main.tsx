@@ -1,14 +1,17 @@
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
 import App from './App'
-
 import { StoreProvider } from './app/store/StoreProvider'
+import { ThemeProvider } from './app/theme'
+import './app/styles/global.scss'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 
   <StoreProvider>
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+
   </StoreProvider >
 
 )

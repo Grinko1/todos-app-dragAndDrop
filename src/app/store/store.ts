@@ -1,11 +1,11 @@
 import { CombinedState, Reducer, ReducersMapObject, configureStore } from "@reduxjs/toolkit";
-import { TodosSchema, todosReducer } from "../../entities/Todos";
-import { AxiosInstance } from "axios";
+import { todosReducer } from "../../entities/Todos";;
 import { $api } from "../../shared/api/api";
 import { useDispatch } from "react-redux";
-import { ModalSchema, modalReducer } from "../../entities/TodoModal";
+import { modalReducer } from "../../entities/TodoModal";
 import { StateSchema, ThunkExtraArg } from "./stateSchema";
 import { createReducerManager } from "./reducerManager";
+import { settingsReducer } from "../../entities/Setting";
 
 
 export function createReduxStore(
@@ -15,6 +15,7 @@ export function createReduxStore(
 
         todos: todosReducer,
         modals: modalReducer,
+        settings: settingsReducer
 
     };
 

@@ -3,6 +3,7 @@ import { ModalSchema } from "../../entities/TodoModal";
 import { TodosSchema } from "../../entities/Todos";
 
 import { AxiosInstance } from "axios";
+import { SettingsSchema } from "../../entities/Setting";
 
 type OptionalRecord<K extends keyof any, T> = {
     [P in K]?: T;
@@ -11,6 +12,7 @@ type OptionalRecord<K extends keyof any, T> = {
 export interface StateSchema {
     todos: TodosSchema,
     modals: ModalSchema,
+    settings: SettingsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

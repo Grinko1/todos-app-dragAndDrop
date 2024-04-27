@@ -13,7 +13,7 @@ interface TodosListProps {
 
 export const TodosList = memo((props: TodosListProps) => {
     const { listIndex = 0, data } = props
-    // console.log(data);
+
 
     const handleIcon = () => {
         const Icons = [<FaRegClock size={20} />, <FaPencilAlt size={20} />, <FaCheck size={20} />]
@@ -29,7 +29,7 @@ export const TodosList = memo((props: TodosListProps) => {
             <Droppable droppableId={String(listIndex)}>
                 {(provided: DroppableProvided) => (
                     <>
-                        <ul ref={provided.innerRef} {...provided.droppableProps} >
+                        <ul ref={provided.innerRef} {...provided.droppableProps} className={cls.List} >
                             {
                                 data.todos.map((item, index) =>
                                     <ListItem key={index} listItem={item} listIndex={listIndex} index={index} />
