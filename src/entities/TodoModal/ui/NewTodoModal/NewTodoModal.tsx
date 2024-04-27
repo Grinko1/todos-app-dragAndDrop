@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { modalActions } from '../../model/slices/modelSlice';
 import { todosActions } from '../../../Todos';
 import { Modal } from '../../../../shared/ui/Modal/Modal';
 import { TodoForm } from '../TodoForm/TodoForm';
+import { modalActions } from '../../../ModalsToggler';
 
 interface NewTodoModalProps {
 }
@@ -32,7 +32,6 @@ export const NewTodoModal = memo((props: NewTodoModalProps) => {
             <TodoForm
                 title="Добавить задачу"
                 initialValue=""
-
                 onSave={onSave}
                 onClose={closeNewItemModal}
                 buttons={buttons}

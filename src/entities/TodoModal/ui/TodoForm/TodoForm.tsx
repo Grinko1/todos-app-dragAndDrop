@@ -31,7 +31,7 @@ export const TodoForm = memo((props: TodoFormProps) => {
     }, [value])
     return (
 
-        <div className={cls.TodoModal}>
+        <div className={cls.TodoForm}>
             <div className={cls.Box}>
                 <header>
                     <button onClick={onClose}>

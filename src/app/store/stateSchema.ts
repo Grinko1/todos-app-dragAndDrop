@@ -1,9 +1,10 @@
 import { AnyAction, CombinedState, EnhancedStore, ReducersMapObject, Reducer } from "@reduxjs/toolkit";
-import { ModalSchema } from "../../entities/TodoModal";
+
 import { TodosSchema } from "../../entities/Todos";
 
 import { AxiosInstance } from "axios";
 import { SettingsSchema } from "../../entities/Setting";
+import { ModalSchema } from "../../entities/ModalsToggler";
 
 type OptionalRecord<K extends keyof any, T> = {
     [P in K]?: T;

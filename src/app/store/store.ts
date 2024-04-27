@@ -2,10 +2,11 @@ import { CombinedState, Reducer, ReducersMapObject, configureStore } from "@redu
 import { todosReducer } from "../../entities/Todos";;
 import { $api } from "../../shared/api/api";
 import { useDispatch } from "react-redux";
-import { modalReducer } from "../../entities/TodoModal";
+
 import { StateSchema, ThunkExtraArg } from "./stateSchema";
 import { createReducerManager } from "./reducerManager";
 import { settingsReducer } from "../../entities/Setting";
+import { modalReducer } from "../../entities/ModalsToggler";
 
 
 export function createReduxStore(

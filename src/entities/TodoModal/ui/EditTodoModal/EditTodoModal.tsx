@@ -1,9 +1,10 @@
 import { memo } from 'react';
 import { useAppDispatch } from '../../../../app/store/store';
 import { edit, todosActions } from '../../../Todos';
-import { modalActions } from '../../model/slices/modelSlice';
+
 import { TodoForm } from '../TodoForm/TodoForm';
 import { Modal } from '../../../../shared/ui/Modal/Modal';
+import { modalActions } from '../../../ModalsToggler';
 
 interface EditTodoModalProps {
 }

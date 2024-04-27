@@ -3,11 +3,11 @@ import cls from './SettingsModal.module.scss';
 import { useSelector } from 'react-redux';
 import { getConfig } from '../../model/selectors/getConfig';
 import { useAppDispatch } from '../../../../app/store/store';
-import { modalActions } from '../../../TodoModal';
 import { settingsActions } from '../../model/slices/settingsSlice';
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsGear } from 'react-icons/bs';
 import { Modal } from '../../../../shared/ui/Modal/Modal';
+import { modalActions } from '../../../ModalsToggler';
 
 interface SettingsModalProps {
 }

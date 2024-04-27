@@ -53,7 +53,8 @@ button {
     transition: 0.1s;
 }
 
-button:hover {
+button:hover,
+button:focus {
     filter: brightness(1.5);
     font-weight: bold;
 }

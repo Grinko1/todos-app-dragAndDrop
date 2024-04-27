@@ -6,7 +6,8 @@ import { BsList } from 'react-icons/bs'
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { Todo } from '../../model/types/todo';
 import { todosActions } from '../../model/slices/todosSlice';
-import { modalActions } from '../../../TodoModal';
+import { modalActions } from '../../../ModalsToggler';
+
 
 interface ListItemProps {
     index: number
