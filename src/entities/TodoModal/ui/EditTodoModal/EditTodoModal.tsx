@@ -1,9 +1,9 @@
 import { memo } from 'react';
-import cls from './EditTodoModal.module.scss';
 import { useAppDispatch } from '../../../../app/store/store';
 import { edit, todosActions } from '../../../Todos';
-import { TodoModal } from '../TodoModal/TodoModal';
 import { modalActions } from '../../model/slices/modelSlice';
+import { TodoForm } from '../TodoForm/TodoForm';
+import { Modal } from '../../../../shared/ui/Modal/Modal';
 
 interface EditTodoModalProps {
 }
@@ -28,12 +28,14 @@ export const EditTodoModal = memo((props: EditTodoModalProps) => {
 
 
     return (
-        <TodoModal
-            title="Редактировать"
-            initialValue={edit.value}
-            onSave={onSave}
-            onClose={closeEditModal}
-            buttons={buttons}
-        />
+        <Modal isOpen={true} onClose={closeEditModal}>
+            <TodoForm
+                title="Редактировать"
+                initialValue={edit.value}
+                onSave={onSave}
+                onClose={closeEditModal}
+                buttons={buttons}
+            />
+        </Modal>
     );
 });

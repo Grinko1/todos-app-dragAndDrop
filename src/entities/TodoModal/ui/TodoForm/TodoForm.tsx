@@ -1,9 +1,8 @@
 import { memo, useCallback, useState } from 'react';
-import cls from './TodoModal.module.scss';
-import { useAppDispatch } from '../../../../app/store/store';
+import cls from './TodoForm.module.scss';
 import { FaArrowLeft, FaRegEdit } from 'react-icons/fa';
 
-interface TodoModalProps {
+interface TodoFormProps {
     title: string,
     initialValue: string,
     onSave: (value: string, index?: number) => void,
@@ -11,7 +10,7 @@ interface TodoModalProps {
     buttons: string[]
 }
 
-export const TodoModal = memo((props: TodoModalProps) => {
+export const TodoForm = memo((props: TodoFormProps) => {
     const { title, initialValue, onSave, onClose, buttons } = props
     const [value, setValue] = useState(initialValue);
 
@@ -31,6 +30,7 @@ export const TodoModal = memo((props: TodoModalProps) => {
         onSave(value, index,)
     }, [value])
     return (
+
         <div className={cls.TodoModal}>
             <div className={cls.Box}>
                 <header>
@@ -53,5 +53,6 @@ export const TodoModal = memo((props: TodoModalProps) => {
                 <footer />
             </div>
         </div>
+
     );
 });

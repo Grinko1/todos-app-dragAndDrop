@@ -37,8 +37,8 @@
     }
 
     .Box {
-        max-width: 350px;
-        width: 100%;
+        max-width: 550px;
+        width: 500px;
         border-radius: 15px;
 
         .Input {
@@ -58,9 +58,9 @@
         }
 
         .actions {
-            text-align: center;
-
-            // background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
             padding: 10px 0 30px;
 
             button {

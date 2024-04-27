@@ -7,6 +7,7 @@ import { modalActions } from '../../../TodoModal';
 import { settingsActions } from '../../model/slices/settingsSlice';
 import { FaArrowLeft } from 'react-icons/fa';
 import { BsGear } from 'react-icons/bs';
+import { Modal } from '../../../../shared/ui/Modal/Modal';
 
 interface SettingsModalProps {
 }
@@ -50,64 +51,66 @@ export const SettingsModal = memo((props: SettingsModalProps) => {
     }
 
     return (
-        <div className={cls.SettingsModal}>
+        <Modal isOpen onClose={closeConfigModal}>
+            <div className={cls.SettingsModal}>
 
-            <div className={cls.Container}>
-                <header>
-                    <button onClick={closeConfigModal}>
-                        <FaArrowLeft size={20} />
-                    </button>
-                    <h1>theme config</h1>
-                    <BsGear size={24} />
-                </header>
-                <div className={cls.Form}>
-                    <div className={cls.Inputs}>
-                        <p>background gradient</p>
-                        <hr />
-                        <div>
-                            <p>from</p>
-                            <input type="color" value={bg1} onChange={e => setBg1(e.target.value)} />
-                        </div>
-                        <div>
-                            <p>to</p>
-                            <input type="color" value={bg2} onChange={e => setBg2(e.target.value)} />
-                        </div>
-                    </div>
-                    <div className={cls.Inputs}>
-                        <p>second background</p>
-                        <hr />
-                        <div>
-                            <p>glass</p>
-                            <input type="color" accept='rgb' value={gc} onChange={e => setGC(e.target.value)} />
-                        </div>
-                        <div>
+                <div className={cls.Container}>
+                    <header>
+                        <button onClick={closeConfigModal}>
+                            <FaArrowLeft size={20} />
+                        </button>
+                        <h1>theme config</h1>
+                        <BsGear size={24} />
+                    </header>
+                    <div className={cls.Form}>
+                        <div className={cls.Inputs}>
+                            <p>background gradient</p>
+                            <hr />
                             <div>
-                                <p>opacity</p>
-                                <p>{op}%</p>
+                                <p>from</p>
+                                <input type="color" value={bg1} onChange={e => setBg1(e.target.value)} />
                             </div>
-                            <input type="range" value={op} min={0} max={100} onChange={e => setOp(e.target.value)} />
+                            <div>
+                                <p>to</p>
+                                <input type="color" value={bg2} onChange={e => setBg2(e.target.value)} />
+                            </div>
+                        </div>
+                        <div className={cls.Inputs}>
+                            <p>second background</p>
+                            <hr />
+                            <div>
+                                <p>glass</p>
+                                <input type="color" accept='rgb' value={gc} onChange={e => setGC(e.target.value)} />
+                            </div>
+                            <div>
+                                <div>
+                                    <p>opacity</p>
+                                    <p>{op}%</p>
+                                </div>
+                                <input type="range" value={op} min={0} max={100} onChange={e => setOp(e.target.value)} />
+                            </div>
+                        </div>
+                        <div className={cls.Inputs}>
+                            <p>text color</p>
+                            <hr />
+                            <div>
+                                <p>text</p>
+                                <input type="color" value={cl} onChange={e => setCl(e.target.value)} />
+                            </div>
                         </div>
                     </div>
-                    <div className={cls.Inputs}>
-                        <p>text color</p>
-                        <hr />
-                        <div>
-                            <p>text</p>
-                            <input type="color" value={cl} onChange={e => setCl(e.target.value)} />
-                        </div>
+                    <div className={cls.Actions}>
+                        <button onClick={saveConfig}>
+                            Save
+                        </button>
+                        <button onClick={restoreDefault}>
+                            default
+                        </button>
                     </div>
+                    <footer />
                 </div>
-                <div className={cls.Actions}>
-                    <button onClick={saveConfig}>
-                        Save
-                    </button>
-                    <button onClick={restoreDefault}>
-                        default
-                    </button>
-                </div>
-                <footer />
-            </div>
 
-        </div>
+            </div>
+        </Modal>
     );
 });

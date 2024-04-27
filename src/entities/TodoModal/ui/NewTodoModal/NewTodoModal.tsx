@@ -1,9 +1,9 @@
-import { memo, useState } from 'react';
-import cls from './NewTodoModal.module.scss';
+import { memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { modalActions } from '../../model/slices/modelSlice';
 import { todosActions } from '../../../Todos';
-import { TodoModal } from '../TodoModal/TodoModal';
+import { Modal } from '../../../../shared/ui/Modal/Modal';
+import { TodoForm } from '../TodoForm/TodoForm';
 
 interface NewTodoModalProps {
 }
@@ -20,15 +20,16 @@ export const NewTodoModal = memo((props: NewTodoModalProps) => {
 
     const onSave = (value: string, index?: number,) => {
         if (value) {
-            console.log(value, index);
             dispatch(todosActions.addNewTodo({ index, value }))
             closeNewItemModal()
         }
     }
 
     return (
-        <div className={cls.NewTodoModal}>
-            <TodoModal
+
+
+        <Modal isOpen={true} onClose={closeNewItemModal}>
+            <TodoForm
                 title="Добавить задачу"
                 initialValue=""
 
@@ -36,6 +37,7 @@ export const NewTodoModal = memo((props: NewTodoModalProps) => {
                 onClose={closeNewItemModal}
                 buttons={buttons}
             />
-        </div>
+        </Modal>
+
     );
 });
