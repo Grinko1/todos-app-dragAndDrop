@@ -3,7 +3,7 @@ import { AnyAction, CombinedState, EnhancedStore, ReducersMapObject, Reducer } f
 import { TodosSchema } from "../../entities/Todos";
 
 import { AxiosInstance } from "axios";
-import { SettingsSchema } from "../../entities/Setting";
+import { ProfileSchema } from "../../entities/Profile";
 import { ModalSchema } from "../../entities/ModalsToggler";
 
 type OptionalRecord<K extends keyof any, T> = {
@@ -13,7 +13,7 @@ type OptionalRecord<K extends keyof any, T> = {
 export interface StateSchema {
     todos: TodosSchema,
     modals: ModalSchema,
-    settings: SettingsSchema
+    profile: ProfileSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -3,14 +3,14 @@ import { useSelector } from "react-redux"
 import { Board } from "./entities/Todos/ui/Board/Board"
 import { EditTodoModal, NewTodoModal } from "./entities/TodoModal"
 import { Navbar } from "./widgets/Navbar/Navbar"
-import { SettingsModal } from "./entities/Setting/ui/SettingsModal/SettingsModal"
 import { useTheme } from "./app/theme"
 import { LoginModal, SignUpModal } from "./features/User"
 import { getModals } from "./entities/ModalsToggler"
+import { ProfileModal } from "./entities/Profile/ui/ProfileModal/ProfileModal"
 
 
 const App = () => {
-    const { editTodoModal, newTodoModal, configModal, loginModal, signUpModal } = useSelector(getModals)
+    const { editTodoModal, newTodoModal, profileModal, loginModal, signUpModal } = useSelector(getModals)
     const { theme } = useTheme();
 
 
@@ -18,7 +18,7 @@ const App = () => {
         <div className={`App ${theme}`}>
             {editTodoModal && <EditTodoModal />}
             {newTodoModal && <NewTodoModal />}
-            {configModal && <SettingsModal />}
+            {profileModal && <ProfileModal />}
             {loginModal && <LoginModal />}
             {signUpModal && <SignUpModal />}
             <Navbar />

@@ -9,7 +9,7 @@ import { ModalSchema } from '../types/modal'
 const initialState: ModalSchema = {
     newTodoModal: false,
     editTodoModal: false,
-    configModal: false,
+    profileModal: false,
     loginModal: false,
     signUpModal: false
 }
@@ -31,8 +31,8 @@ export const modalSlice = createSlice({
                 editTodoModal: !state.editTodoModal
             }
         },
-        configModal: (state) => {
-            return { ...state, configModal: !state.configModal }
+        profileModal: (state) => {
+            return { ...state, profileModal: !state.profileModal }
         },
         toggleLoginModal: (state) => {
             return { ...state, loginModal: !state.loginModal }

@@ -1,9 +1,10 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import cls from './LoginForm.module.scss';
 import { FaArrowLeft, FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { LoginData } from '../../../model/types/login';
 import { useAppDispatch } from '../../../../../app/store/store';
 import { modalActions } from '../../../../../entities/ModalsToggler';
+import { Input } from '../../../../../shared/ui/Input/Input';
 
 
 interface LoginFormProps {
@@ -19,20 +20,17 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const [password, setPassword] = useState<string>("");
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
+    const saveButtonRef = useRef<HTMLButtonElement>(null);
 
-    const handleEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+    const handleEmailValue = useCallback((value: string) => {
+        setEmail(value);
         setEmailError(null);
-    };
-    const handlePasswordValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
+    }, []);
+    const handlePasswordValue = useCallback((value: string) => {
+        setPassword(value);
         setPasswordError(null)
-    };
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            saveHandle()
-        }
-    };
+    }, []);
+
     const saveHandle = useCallback(() => {
         // todo validate
         if (!email.trim()) {
@@ -52,6 +50,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
         setPassword("")
         setEmail("")
     }, [email, password])
+
     const openSignUpModal = useCallback(() => {
         onClose()
         dispatch(modalActions.toggleSignUpModal())
@@ -67,19 +66,12 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     <h1>Авторизация</h1>
                     <FaRegUser size={24} />
                 </header>
-                <div className={cls.Input}>
-                    {emailError && <span className={cls.error}>{emailError}</span>}
-                    <input onKeyDown={handleKeyDown} autoFocus type="text" value={email} onChange={handleEmailValue} placeholder='email' />
+                <Input error={emailError} autofocus value={email} onChange={handleEmailValue} placeholder='email' />
+                <Input error={passwordError} value={password} onChange={handlePasswordValue} placeholder='Пароль' nextRef={saveButtonRef} />
 
-                </div>
-                <div className={cls.Input}>
-                    {passwordError && <span className={cls.error}>{passwordError}</span>}
-                    <input onKeyDown={handleKeyDown} type="text" value={password} onChange={handlePasswordValue} placeholder='password' />
-
-                </div>
                 <div className={cls.actions}>
 
-                    <button onClick={() => saveHandle()}>
+                    <button onClick={() => saveHandle()} ref={saveButtonRef}>
                         Войти
                     </button>
                     <button className={cls.signUpBtn} onClick={openSignUpModal}>нет аккаунта</button>

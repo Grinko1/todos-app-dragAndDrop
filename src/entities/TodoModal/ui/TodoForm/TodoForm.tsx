@@ -18,7 +18,6 @@ export const TodoForm = memo((props: TodoFormProps) => {
         setValue(e.target.value);
     };
 
-    console.log("value outside", value);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {

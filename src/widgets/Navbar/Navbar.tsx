@@ -19,7 +19,7 @@ export const Navbar = memo((props: NavbarProps) => {
         dispatch(modalActions.newItemModal())
     }
     const openSettingsModal = () => {
-        dispatch(modalActions.configModal())
+        dispatch(modalActions.profileModal())
     }
     const openLoginModal = useCallback(() => {
         dispatch(modalActions.toggleLoginModal())

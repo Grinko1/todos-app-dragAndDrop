@@ -1,0 +1,70 @@
+.ProfileModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+    padding: 0 5px;
+    text-align: center;
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+
+        text-transform: uppercase;
+
+        background: var(--background);
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+
+        button {
+            display: flex;
+            background: none;
+            border: none;
+        }
+    }
+
+    footer {
+        height: 10px;
+        border-radius: 0 0 15px 15px;
+
+        background: var(--background)
+    }
+
+    .Container {
+        max-width: 550px;
+        width: 500px;
+        border-radius: 15px;
+    }
+
+    .Form {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        background: var(--glass);
+        padding: 30px 10px 20px;
+
+
+    }
+}
+
+.Actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    text-align: center;
+
+    background: var(--glass);
+    padding: 10px 0 30px;
+
+    button {
+        text-transform: uppercase;
+        padding: 8px 20px;
+        font-size: 18px;
+    }
+}

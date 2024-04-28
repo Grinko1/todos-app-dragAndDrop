@@ -2,7 +2,7 @@
 export interface ModalSchema {
     newTodoModal: boolean
     editTodoModal: boolean
-    configModal: boolean
+    profileModal: boolean
     loginModal: boolean
     signUpModal: boolean
 }
