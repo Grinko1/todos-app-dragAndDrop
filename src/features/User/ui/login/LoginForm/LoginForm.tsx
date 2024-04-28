@@ -1,18 +1,20 @@
 import { memo, useCallback, useState } from 'react';
 import cls from './LoginForm.module.scss';
-import { FaArrowLeft, FaRegEdit } from 'react-icons/fa';
+import { FaArrowLeft, FaRegEdit, FaRegUser } from 'react-icons/fa';
 import { LoginData } from '../../../model/types/login';
+import { useAppDispatch } from '../../../../../app/store/store';
+import { modalActions } from '../../../../../entities/ModalsToggler';
 
 
 interface LoginFormProps {
-    title: string,
     onSave: (data: LoginData) => void,
     onClose: () => void,
 
 }
 
 export const LoginForm = memo((props: LoginFormProps) => {
-    const { title, onSave, onClose } = props
+    const { onSave, onClose } = props
+    const dispatch = useAppDispatch()
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [emailError, setEmailError] = useState<string | null>(null);
@@ -50,6 +52,11 @@ export const LoginForm = memo((props: LoginFormProps) => {
         setPassword("")
         setEmail("")
     }, [email, password])
+    const openSignUpModal = useCallback(() => {
+        onClose()
+        dispatch(modalActions.toggleSignUpModal())
+
+    }, [])
     return (
         <div className={cls.LoginForm}>
             <div className={cls.Box}>
@@ -57,8 +64,8 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     <button onClick={onClose}>
                         <FaArrowLeft size={20} />
                     </button>
-                    <h1>{title}</h1>
-                    <FaRegEdit size={24} />
+                    <h1>Авторизация</h1>
+                    <FaRegUser size={24} />
                 </header>
                 <div className={cls.Input}>
                     {emailError && <span className={cls.error}>{emailError}</span>}
@@ -75,8 +82,10 @@ export const LoginForm = memo((props: LoginFormProps) => {
                     <button onClick={() => saveHandle()}>
                         Войти
                     </button>
+                    <button className={cls.signUpBtn} onClick={openSignUpModal}>нет аккаунта</button>
 
                 </div>
+
                 <footer />
             </div>
         </div>

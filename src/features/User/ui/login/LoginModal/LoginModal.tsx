@@ -30,8 +30,6 @@ export const LoginModal = memo((props: LoginModalProps) => {
     return (
         <Modal isOpen onClose={closeLoginModal}>
             <LoginForm
-                title="Аккаунт"
-
                 onSave={onSave}
                 onClose={closeLoginModal} />
         </Modal>

@@ -67,11 +67,20 @@
             align-items: center;
             justify-content: space-around;
             padding: 10px 0 30px;
+            position: relative;
 
             button {
                 text-transform: uppercase;
                 padding: 8px 20px;
                 font-size: 18px;
+            }
+
+            .signUpBtn {
+                position: absolute;
+                left: 0px;
+                background: transparent;
+                text-transform: lowercase;
+                font-size: 16px;
             }
         }
     }

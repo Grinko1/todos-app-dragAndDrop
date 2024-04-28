@@ -10,7 +10,8 @@ const initialState: ModalSchema = {
     newTodoModal: false,
     editTodoModal: false,
     configModal: false,
-    loginModal: false
+    loginModal: false,
+    signUpModal: false
 }
 
 export const modalSlice = createSlice({
@@ -35,6 +36,9 @@ export const modalSlice = createSlice({
         },
         toggleLoginModal: (state) => {
             return { ...state, loginModal: !state.loginModal }
+        },
+        toggleSignUpModal: (state) => {
+            return { ...state, signUpModal: !state.signUpModal }
         }
     }
 })

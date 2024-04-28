@@ -4,4 +4,5 @@ export interface ModalSchema {
     editTodoModal: boolean
     configModal: boolean
     loginModal: boolean
+    signUpModal: boolean
 }

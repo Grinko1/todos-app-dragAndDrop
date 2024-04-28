@@ -26,7 +26,6 @@ export function useTheme(): UseThemeResult {
         localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
         saveAction?.(newTheme)
     };
-    console.log(theme);
     return {
         theme: theme || Theme.DARK,
         toggleTheme,

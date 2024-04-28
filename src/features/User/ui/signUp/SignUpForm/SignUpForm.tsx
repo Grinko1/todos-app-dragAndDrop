@@ -2,35 +2,56 @@ import { memo, useCallback, useState } from 'react';
 import cls from './SignUpForm.module.scss';
 import { LoginData } from '../../../model/types/login';
 import { FaArrowLeft, FaRegEdit } from 'react-icons/fa';
+import { Input } from '../../../../../shared/ui/Input/Input';
 
 interface SignUpFormProps {
-    title: string,
     onSave: (data: LoginData) => void,
     onClose: () => void,
 }
 
 export const SignUpForm = memo((props: SignUpFormProps) => {
-    const { title, onSave, onClose } = props
+    const { onSave, onClose } = props
+    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [nameError, setNameError] = useState<string | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
 
-    const handleEmailValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
+    console.log({ email, name, password, confirmPassword });
+
+    console.log(nameError, confirmPasswordError, passwordError);
+
+    const handleNameValue = useCallback((value: string) => {
+        setName(value);
+        setNameError(null);
+    }, []);
+
+    const handleEmailValue = useCallback((value: string) => {
+        setEmail(value);
         setEmailError(null);
-    };
-    const handlePasswordValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
+    }, []);
+    const handlePasswordValue = useCallback((value: string) => {
+        setPassword(value);
         setPasswordError(null)
-    };
+    }, []);
+    const handleConfirmPasswordValue = useCallback((value: string) => {
+        setConfirmPassword(value);
+        setConfirmPasswordError(null)
+    }, []);
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             saveHandle()
         }
     };
     const saveHandle = useCallback(() => {
-        // todo validate
+        if (!name.trim()) {
+            setNameError("Name is required");
+            return;
+        }
         if (!email.trim()) {
             setEmailError("Email is required");
             return;
@@ -43,10 +64,20 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
             setPasswordError("Password must be at least 3 characters long");
             return;
         }
+        if (confirmPassword.length < 3) {
+            setConfirmPasswordError("Password must be at least 3 characters long");
+            return;
+        }
+        if (confirmPassword !== password || password.length !== confirmPassword.length) {
+            setConfirmPasswordError("Пароли не совпадают");
+            return;
+        }
 
         onSave({ email, password })
         setPassword("")
         setEmail("")
+        setPassword("")
+        setConfirmPassword("")
     }, [email, password])
     return (
         <div className={cls.SignUpForm}>
@@ -55,19 +86,14 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
                     <button onClick={onClose}>
                         <FaArrowLeft size={20} />
                     </button>
-                    <h1>{title}</h1>
+                    <h1>Регистрация</h1>
                     <FaRegEdit size={24} />
                 </header>
-                <div className={cls.Input}>
-                    {emailError && <span className={cls.error}>{emailError}</span>}
-                    <input onKeyDown={handleKeyDown} autoFocus type="text" value={email} onChange={handleEmailValue} placeholder='email' />
+                <Input error={nameError} placeholder='Имя' value={name} onChange={handleNameValue} autofocus={true} />
+                <Input error={emailError} placeholder='email' value={email} onChange={handleEmailValue} />
+                <Input error={passwordError} placeholder='Пароль' value={password} onChange={handlePasswordValue} />
+                <Input error={confirmPasswordError} placeholder='Подтвердите пароль' value={confirmPassword} onChange={handleConfirmPasswordValue} />
 
-                </div>
-                <div className={cls.Input}>
-                    {passwordError && <span className={cls.error}>{passwordError}</span>}
-                    <input onKeyDown={handleKeyDown} type="text" value={password} onChange={handlePasswordValue} placeholder='password' />
-
-                </div>
                 <div className={cls.actions}>
 
                     <button onClick={() => saveHandle()}>
