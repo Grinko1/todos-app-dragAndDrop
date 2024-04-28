@@ -1,11 +1,11 @@
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 import cls from './SignUpForm.module.scss';
-import { LoginData } from '../../../model/types/login';
+import { SignUpData } from '../../../model/types/login';
 import { FaArrowLeft, FaRegEdit } from 'react-icons/fa';
 import { Input } from '../../../../../shared/ui/Input/Input';
 
 interface SignUpFormProps {
-    onSave: (data: LoginData) => void,
+    onSave: (data: SignUpData) => void,
     onClose: () => void,
 }
 
@@ -15,19 +15,18 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+
     const [nameError, setNameError] = useState<string | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
-
-    console.log({ email, name, password, confirmPassword });
-
-    console.log(nameError, confirmPasswordError, passwordError);
+    const saveButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleNameValue = useCallback((value: string) => {
         setName(value);
         setNameError(null);
-    }, []);
+    }, [nameError]);
 
     const handleEmailValue = useCallback((value: string) => {
         setEmail(value);
@@ -42,43 +41,44 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
         setConfirmPasswordError(null)
     }, []);
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            saveHandle()
-        }
-    };
-    const saveHandle = useCallback(() => {
+    const validate = () => {
         if (!name.trim()) {
-            setNameError("Name is required");
+            setNameError("Имя обязательно для заполнения");
             return;
         }
         if (!email.trim()) {
-            setEmailError("Email is required");
+            setEmailError("Email обязателен для заполнения");
             return;
         }
         if (!/\S+@\S+\.\S+/.test(email)) {
-            setEmailError("Email is invalid");
+            setEmailError("Неправильный формат почты");
             return;
         }
         if (password.length < 3) {
-            setPasswordError("Password must be at least 3 characters long");
+            setPasswordError("Пароль должен содержать минимум 3 символа");
             return;
         }
         if (confirmPassword.length < 3) {
-            setConfirmPasswordError("Password must be at least 3 characters long");
+            setConfirmPasswordError("Пароль должен содержать минимум 3 символа");
             return;
         }
         if (confirmPassword !== password || password.length !== confirmPassword.length) {
             setConfirmPasswordError("Пароли не совпадают");
             return;
         }
+        return true
+    }
+    const saveHandle = useCallback(() => {
+        if (validate()) {
+            onSave({ name, email, password, confirmPassword })
+            setPassword("")
+            setEmail("")
+            setPassword("")
+            setConfirmPassword("")
+        }
+    }, [email, password, name, confirmPassword])
 
-        onSave({ email, password })
-        setPassword("")
-        setEmail("")
-        setPassword("")
-        setConfirmPassword("")
-    }, [email, password])
+
     return (
         <div className={cls.SignUpForm}>
             <div className={cls.Box}>
@@ -89,14 +89,14 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
                     <h1>Регистрация</h1>
                     <FaRegEdit size={24} />
                 </header>
-                <Input error={nameError} placeholder='Имя' value={name} onChange={handleNameValue} autofocus={true} />
-                <Input error={emailError} placeholder='email' value={email} onChange={handleEmailValue} />
-                <Input error={passwordError} placeholder='Пароль' value={password} onChange={handlePasswordValue} />
-                <Input error={confirmPasswordError} placeholder='Подтвердите пароль' value={confirmPassword} onChange={handleConfirmPasswordValue} />
+                <Input error={nameError} placeholder='Имя' value={name} onChange={handleNameValue} autofocus />
+                <Input error={emailError} placeholder='Email' value={email} onChange={handleEmailValue} />
+                <Input error={passwordError} placeholder='Пароль' value={password} onChange={handlePasswordValue} nextRef={saveButtonRef} />
+                <Input error={confirmPasswordError} placeholder='Подтвердите пароль' value={confirmPassword} nextRef={saveButtonRef} onChange={handleConfirmPasswordValue} />
 
                 <div className={cls.actions}>
 
-                    <button onClick={() => saveHandle()}>
+                    <button onClick={() => saveHandle()} ref={saveButtonRef}>
                         Войти
                     </button>
 
