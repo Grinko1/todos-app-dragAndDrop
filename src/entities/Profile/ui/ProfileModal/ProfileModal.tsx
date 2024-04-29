@@ -9,7 +9,7 @@ import { Modal } from '../../../../shared/ui/Modal/Modal';
 import { modalActions } from '../../../ModalsToggler';
 import { Input } from '../../../../shared/ui/Input/Input';
 import { getProfile } from '../../model/selectors/getProfile';
-import { Theme, useTheme } from '../../../../app/theme';
+
 
 interface ProfileModalProps {
 }
@@ -18,16 +18,38 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
     const { } = props
     const { email: curEmail, name: curName } = useSelector(getProfile)
 
-    const [name, setName] = useState<string>("");
-    const [email, setEmail] = useState<string>("");
+    const [name, setName] = useState<string>(curEmail);
+    const [email, setEmail] = useState<string>(curName);
+
+
     const [nameError, setNameError] = useState<string | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
 
 
     const dispatch = useAppDispatch()
 
-    const closeConfigModal = () => {
+    const closeProfileModal = () => {
         dispatch(modalActions.profileModal())
+    }
+
+    const validateData = () => {
+        if (!name.trim()) {
+            setNameError("Имя обязательно для заполнения")
+            return
+        }
+        if (name.length < 2) {
+            setNameError("Имя должно содержать минимум 2 буквы")
+            return
+        }
+        if (!email.trim()) {
+            setEmailError("Почта обязатльна для заполнения")
+            return
+        }
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailError("Неправильный формат почты");
+            return;
+        }
+        return true;
     }
 
     const handleNameValue = useCallback((value: string) => {
@@ -40,15 +62,23 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
         setEmailError(null);
     }, []);
 
+    const handleUpdateProfile = useCallback(() => {
+        if (validateData()) {
+            console.log("data for update profile:", { name, email });
+            closeProfileModal()
+        }
+
+
+    }, [name, email])
 
 
     return (
-        <Modal isOpen onClose={closeConfigModal}>
+        <Modal isOpen onClose={closeProfileModal}>
             <div className={cls.ProfileModal}>
 
                 <div className={cls.Container}>
                     <header>
-                        <button onClick={closeConfigModal}>
+                        <button onClick={closeProfileModal}>
                             <FaArrowLeft size={20} />
                         </button>
                         <h1>Профиль</h1>
@@ -56,11 +86,11 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
                     </header>
                     <div className={cls.Form}>
                         <Input value={name} onChange={handleNameValue} placeholder='name' autofocus error={nameError} />
-                        <Input value={email} onChange={handleEmailValue} placeholder='email' autofocus error={emailError} />
+                        <Input value={email} onChange={handleEmailValue} placeholder='email' error={emailError} />
 
                     </div>
                     <div className={cls.Actions}>
-                        <button onClick={() => { }}>
+                        <button onClick={handleUpdateProfile}>
                             Сохранить
                         </button>
 

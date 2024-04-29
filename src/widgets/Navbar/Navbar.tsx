@@ -1,8 +1,6 @@
 import { memo, useCallback } from 'react';
 import cls from './Navbar.module.scss';
 import { useAppDispatch } from '../../app/store/store';
-import { BsGear } from 'react-icons/bs';
-import { LoginModal } from '../../features/User/ui/login/LoginModal/LoginModal';
 import { modalActions } from '../../entities/ModalsToggler';
 import { Theme, useTheme } from '../../app/theme';
 import { FaMoon, FaRegMoon, FaRegUser } from 'react-icons/fa';
