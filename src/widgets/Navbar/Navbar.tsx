@@ -4,6 +4,8 @@ import { useAppDispatch } from '../../app/store/store';
 import { BsGear } from 'react-icons/bs';
 import { LoginModal } from '../../features/User/ui/login/LoginModal/LoginModal';
 import { modalActions } from '../../entities/ModalsToggler';
+import { Theme, useTheme } from '../../app/theme';
+import { FaMoon, FaRegMoon, FaRegUser } from 'react-icons/fa';
 
 interface NavbarProps {
 }
@@ -11,7 +13,7 @@ interface NavbarProps {
 export const Navbar = memo((props: NavbarProps) => {
     const { } = props
     const dispatch = useAppDispatch()
-
+    const { theme, toggleTheme } = useTheme();
 
 
     const openNewItemModal = () => {
@@ -33,11 +35,16 @@ export const Navbar = memo((props: NavbarProps) => {
                 </button>
             </div>
             <div className={cls.rightPart}>
+
                 <button onClick={openLoginModal}>
                     Войти
                 </button>
+
                 <button onClick={openSettingsModal}>
-                    <BsGear size={24} />
+                    <FaRegUser size={24} />
+                </button>
+                <button onClick={() => toggleTheme()}>
+                    {theme === Theme.DARK ? <FaRegMoon size={24} /> : <FaMoon size={24} />}
                 </button>
             </div>
 

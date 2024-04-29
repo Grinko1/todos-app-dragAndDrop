@@ -43,6 +43,10 @@ input {
     filter: brightness(1.05);
 }
 
+input {
+    background: var(--background-dark);
+}
+
 header,
 footer {
     filter: brightness(1.2);

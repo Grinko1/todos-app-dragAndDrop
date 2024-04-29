@@ -3,7 +3,7 @@ import cls from './ProfileModal.module.scss';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '../../../../app/store/store';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaMoon, FaRegMoon } from 'react-icons/fa';
 import { BsGear } from 'react-icons/bs';
 import { Modal } from '../../../../shared/ui/Modal/Modal';
 import { modalActions } from '../../../ModalsToggler';
@@ -16,17 +16,14 @@ interface ProfileModalProps {
 
 export const ProfileModal = memo((props: ProfileModalProps) => {
     const { } = props
-    const { email: curEmail, name: curName, theme: curTheme } = useSelector(getProfile)
+    const { email: curEmail, name: curName } = useSelector(getProfile)
 
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [nameError, setNameError] = useState<string | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
-    const { theme, toggleTheme } = useTheme();
 
 
-
-    console.log(theme, curTheme);
     const dispatch = useAppDispatch()
 
     const closeConfigModal = () => {
@@ -60,10 +57,6 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
                     <div className={cls.Form}>
                         <Input value={name} onChange={handleNameValue} placeholder='name' autofocus error={nameError} />
                         <Input value={email} onChange={handleEmailValue} placeholder='email' autofocus error={emailError} />
-
-                        <button onClick={() => toggleTheme()}>
-                            {theme === Theme.DARK ? "light" : "dark"}
-                        </button>
 
                     </div>
                     <div className={cls.Actions}>
