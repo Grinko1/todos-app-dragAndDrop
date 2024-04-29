@@ -10,8 +10,7 @@ const fallbackTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) as Theme
 
 const ThemeProvider = (props: ThemeProviderProps) => {
     const { initialTheme, children } = props;
-    // const { theme: defaultTheme } = useJsonSettings();
-    const { theme: defaultTheme } = { theme: "app_dark_theme" };
+    const { theme: defaultTheme } = { theme: fallbackTheme };
     const [isThemeInited, setThemeInited] = useState(false);
 
     const [theme, setTheme] = useState<Theme>(initialTheme || fallbackTheme || Theme.LIGHT);

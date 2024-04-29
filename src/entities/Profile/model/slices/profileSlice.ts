@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProfileSchema } from "../types/profile";
-import { Theme } from "../../../../app/theme";
+
 
 
 
@@ -16,7 +16,7 @@ export const initialState: ProfileSchema =
         {
             name: "",
             email: "",
-            theme: Theme.DARK
+            theme: null
         }
 
 export const profileSlice = createSlice({
