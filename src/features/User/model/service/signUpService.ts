@@ -1,28 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "../../../../app/store/stateSchema";
-import { LoginData, LoginResponse } from "../types/login";
+import { LoginData, LoginResponse, SignUpData } from "../types/login";
 import { profileActions } from "../../../../entities/Profile";
 
 
 
 
 
-export const loginService = createAsyncThunk<
+export const signUpService = createAsyncThunk<
     LoginResponse,
-    LoginData,
+    SignUpData,
     ThunkConfig<string>
 >(
-    'login/LoginByEmail',
-    async (authData, thunkApi) => {
+    'login/signUp',
+    async (signUpData, thunkApi) => {
         const { extra, dispatch, rejectWithValue } = thunkApi;
 
 
         try {
-            const response = await extra.api.post('/auth/sign-in', authData);
+            const response = await extra.api.post('/auth/sign-up', signUpData);
             if (!response.data) {
                 throw new Error();
             }
-            console.log("response /auth/sign-in", response);
+            console.log("response /auth/sign-up", response);
 
             localStorage.setItem("TOKEN", `Bearer ${response.data.token}`);
             localStorage.setItem("userId", response.data.user.id);

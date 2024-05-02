@@ -3,6 +3,10 @@ import cls from './SignUpForm.module.scss';
 import { SignUpData } from '../../../model/types/login';
 import { FaArrowLeft, FaRegEdit } from 'react-icons/fa';
 import { Input } from '../../../../../shared/ui/Input/Input';
+import { useSelector } from 'react-redux';
+import { getLoginInfo } from '../../../model/selector/getLoginInfo';
+import { useAppDispatch } from '../../../../../app/store/store';
+import { loginActions } from '../../../model/slice/loginSlice';
 
 interface SignUpFormProps {
     onSave: (data: SignUpData) => void,
@@ -22,23 +26,38 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
     const saveButtonRef = useRef<HTMLButtonElement>(null);
+    const { isLoading, error: fetchError } = useSelector(getLoginInfo)
 
+
+    const dispatch = useAppDispatch()
     const handleNameValue = useCallback((value: string) => {
         setName(value);
         setNameError(null);
+        if (fetchError) {
+            dispatch(loginActions.resetError())
+        }
     }, [nameError]);
 
     const handleEmailValue = useCallback((value: string) => {
         setEmail(value);
         setEmailError(null);
+        if (fetchError) {
+            dispatch(loginActions.resetError())
+        }
     }, []);
     const handlePasswordValue = useCallback((value: string) => {
         setPassword(value);
         setPasswordError(null)
+        if (fetchError) {
+            dispatch(loginActions.resetError())
+        }
     }, []);
     const handleConfirmPasswordValue = useCallback((value: string) => {
         setConfirmPassword(value);
         setConfirmPasswordError(null)
+        if (fetchError) {
+            dispatch(loginActions.resetError())
+        }
     }, []);
 
     const validate = () => {
@@ -70,13 +89,13 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
     }
     const saveHandle = useCallback(() => {
         if (validate()) {
-            onSave({ name, email, password, confirmPassword })
-            setPassword("")
-            setEmail("")
-            setPassword("")
-            setConfirmPassword("")
+            onSave({ name, email, password })
+            // setPassword("")
+            // setEmail("")
+            // setPassword("")
+            // setConfirmPassword("")
         }
-    }, [email, password, name, confirmPassword])
+    }, [email, password, name])
 
 
     return (
@@ -93,7 +112,7 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
                 <Input error={emailError} placeholder='Email' value={email} onChange={handleEmailValue} />
                 <Input error={passwordError} placeholder='Пароль' value={password} onChange={handlePasswordValue} nextRef={saveButtonRef} />
                 <Input error={confirmPasswordError} placeholder='Подтвердите пароль' value={confirmPassword} nextRef={saveButtonRef} onChange={handleConfirmPasswordValue} />
-
+                {fetchError && <span className={cls.fetchError}>{fetchError}</span>}
                 <div className={cls.actions}>
 
                     <button onClick={() => saveHandle()} ref={saveButtonRef}>

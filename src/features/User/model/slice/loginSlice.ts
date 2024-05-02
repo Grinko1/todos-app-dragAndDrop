@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { LoginData, LoginSchema } from "../types/login"
+import { LoginSchema } from "../types/login"
 import { loginService } from "../service/loginService"
+import { signUpService } from "../service/signUpService"
 
 
 
@@ -33,6 +34,20 @@ export const loginSlice = createSlice({
                 state.token = action.payload.token
             })
             .addCase(loginService.rejected, (state, action) => {
+                state.isLoading = false,
+                    state.error = action.payload
+
+            })
+            .addCase(signUpService.pending, (state) => {
+                state.error = null;
+                state.isLoading = true;
+            })
+            .addCase(signUpService.fulfilled, (state, action) => {
+                state.error = null;
+                state.isLoading = false;
+                state.token = action.payload.token
+            })
+            .addCase(signUpService.rejected, (state, action) => {
                 state.isLoading = false,
                     state.error = action.payload
 

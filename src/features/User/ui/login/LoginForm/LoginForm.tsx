@@ -1,6 +1,6 @@
 import { memo, useCallback, useRef, useState } from 'react';
 import cls from './LoginForm.module.scss';
-import { FaArrowLeft, FaRegEdit, FaRegUser } from 'react-icons/fa';
+import { FaArrowLeft, FaRegUser } from 'react-icons/fa';
 import { LoginData } from '../../../model/types/login';
 import { useAppDispatch } from '../../../../../app/store/store';
 import { modalActions } from '../../../../../entities/ModalsToggler';
