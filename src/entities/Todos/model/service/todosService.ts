@@ -23,11 +23,6 @@ export const todosService = createAsyncThunk<
             }
             console.log(`response /api/user/${id}/todos`, response);
 
-            // localStorage.setItem("TOKEN", `Bearer ${response.data.token}`);
-            // localStorage.setItem("userId", response.data.user.id);
-            // dispatch(profileActions.save(response.data.user))
-
-
             return response.data;
         } catch (e) {
             //@ts-ignore

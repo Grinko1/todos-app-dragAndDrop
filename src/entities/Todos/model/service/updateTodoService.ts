@@ -5,7 +5,7 @@ import { Todo } from "../types/todo";
 
 interface UpdateTodoProps {
     todo: Todo,
-    index: number
+    index?: number
 }
 
 export const updateTodoService = createAsyncThunk<
@@ -19,19 +19,17 @@ export const updateTodoService = createAsyncThunk<
         let updatedTodo = { ...data.todo }
         console.log(updatedTodo, data.index);
 
+        if (data.index !== null || data.index !== undefined) {
+            if (data.index === 0) {
+                updatedTodo.status = 'PENDING_STATUS'
+            } else if (data.index === 1) {
+                updatedTodo.status = 'PROGRESS_STATUS';
+            } else if (data.index === 2) {
+                updatedTodo.status = 'COMPLETED_STATUS';
 
-        if (data.index == 0) {
-            updatedTodo.status = 'PENDING_STATUS'
-            console.log(updatedTodo);
-        } else if (data.index == 1) {
-            updatedTodo.status = 'PROGRESS_STATUS';
-        } else {
-            updatedTodo.status = 'COMPLETED_STATUS';
-
+            }
         }
 
-
-        console.log(updatedTodo.status);
         const id = localStorage.getItem("userId")
         try {
             const response = await extra.api.patch(`/api/user/${id}/todos/${data.todo.id}`, updatedTodo);

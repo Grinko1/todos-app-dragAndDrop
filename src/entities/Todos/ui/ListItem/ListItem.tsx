@@ -24,7 +24,7 @@ export const ListItem = memo((props: ListItemProps) => {
     }
 
     const openEditModal = () => {
-        dispatch(modalActions.editModal({ listIndex, index, value: listItem.title }))
+        dispatch(modalActions.editModal({ listIndex, index, value: listItem.title, updateTodo: listItem }))
     }
     return (
         <Draggable key={listItem.id} draggableId={String(listItem.id)} index={index} >

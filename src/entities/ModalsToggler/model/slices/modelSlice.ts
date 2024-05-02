@@ -22,9 +22,11 @@ export const modalSlice = createSlice({
             return { ...state, newTodoModal: !state.newTodoModal }
         },
         editModal: (state, { payload }) => {
+            console.log(payload);
             edit.listIndex = payload.listIndex
             edit.itemIndex = payload.index
             edit.value = payload.value
+            edit.updateTodo = payload.updateTodo
 
             return {
                 ...state,

@@ -8,7 +8,8 @@ import { todosService } from '../service/todosService'
 export const edit = {
     listIndex: 0,
     itemIndex: 0,
-    value: ''
+    value: '',
+    updateTodo: {}
 }
 
 
@@ -20,16 +21,15 @@ const initialState: TodosSchema =
     todoList: [
         {
             title: 'Задачи', todos: [
-
-                { id: 10002, title: "two mock task" },
-                { id: 10003, title: "three mock task" },
-                { id: 10004, title: "four mock task" },
             ]
         },
-        { title: 'В работе', todos: [{ id: 10001, title: "one mock task" },] },
         {
-            title: 'Выполненые', todos: [{ id: 10006, title: "six mock task" },
-            { id: 10005, title: "five mocktask" }]
+            title: 'В работе', todos: [
+            ]
+        },
+        {
+            title: 'Выполненые', todos: [
+            ]
         }
     ]
 
