@@ -14,9 +14,9 @@ export const initialState: ProfileSchema =
         JSON.parse(localStorageProfile)
         :
         {
+            id: null,
             name: "",
             email: "",
-            theme: null
         }
 
 export const profileSlice = createSlice({
@@ -24,9 +24,10 @@ export const profileSlice = createSlice({
     initialState,
     reducers: {
         save: (state, { payload }) => {
-
-
-            localStorage.setItem('@profile', JSON.stringify(state))
+            state.id = payload.id
+            state.name = payload.name
+            state.email = payload.email
+            localStorage.setItem('@profile', JSON.stringify(payload))
         }
 
     }

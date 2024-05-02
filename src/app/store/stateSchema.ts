@@ -5,6 +5,7 @@ import { TodosSchema } from "../../entities/Todos";
 import { AxiosInstance } from "axios";
 import { ProfileSchema } from "../../entities/Profile";
 import { ModalSchema } from "../../entities/ModalsToggler";
+import { LoginSchema } from "../../features/User";
 
 type OptionalRecord<K extends keyof any, T> = {
     [P in K]?: T;
@@ -13,7 +14,8 @@ type OptionalRecord<K extends keyof any, T> = {
 export interface StateSchema {
     todos: TodosSchema,
     modals: ModalSchema,
-    profile: ProfileSchema
+    profile: ProfileSchema,
+    login: LoginSchema
 }
 
 export type StateSchemaKey = keyof StateSchema;

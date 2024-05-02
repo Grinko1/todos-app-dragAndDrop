@@ -7,6 +7,7 @@ import { StateSchema, ThunkExtraArg } from "./stateSchema";
 import { createReducerManager } from "./reducerManager";
 import { modalReducer } from "../../entities/ModalsToggler";
 import { profileReducer } from "../../entities/Profile";
+import { loginReducer } from "../../features/User";
 
 
 export function createReduxStore(
@@ -16,7 +17,8 @@ export function createReduxStore(
 
         todos: todosReducer,
         modals: modalReducer,
-        profile: profileReducer
+        profile: profileReducer,
+        login: loginReducer
 
     };
 

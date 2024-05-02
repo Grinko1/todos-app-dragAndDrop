@@ -5,6 +5,9 @@ import { LoginData } from '../../../model/types/login';
 import { useAppDispatch } from '../../../../../app/store/store';
 import { modalActions } from '../../../../../entities/ModalsToggler';
 import { Input } from '../../../../../shared/ui/Input/Input';
+import { getLoginInfo } from '../../../model/selector/getLoginInfo';
+import { useSelector } from 'react-redux';
+import { loginActions } from '../../../model/slice/loginSlice';
 
 
 interface LoginFormProps {
@@ -21,15 +24,25 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const saveButtonRef = useRef<HTMLButtonElement>(null);
+    const { isLoading, error: fetchError } = useSelector(getLoginInfo)
+
 
     const handleEmailValue = useCallback((value: string) => {
         setEmail(value);
         setEmailError(null);
+        if (fetchError) {
+            dispatch(loginActions.resetError())
+        }
+
     }, []);
     const handlePasswordValue = useCallback((value: string) => {
         setPassword(value);
         setPasswordError(null)
+        if (fetchError) {
+            dispatch(loginActions.resetError())
+        }
     }, []);
+
 
     const saveHandle = useCallback(() => {
         // todo validate
@@ -47,8 +60,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
         }
 
         onSave({ email, password })
-        setPassword("")
-        setEmail("")
+
     }, [email, password])
 
     const openSignUpModal = useCallback(() => {
@@ -68,7 +80,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
                 </header>
                 <Input error={emailError} autofocus value={email} onChange={handleEmailValue} placeholder='email' />
                 <Input error={passwordError} value={password} onChange={handlePasswordValue} placeholder='Пароль' nextRef={saveButtonRef} />
-
+                {fetchError && <span className={cls.fetchError}>{fetchError}</span>}
                 <div className={cls.actions}>
 
                     <button onClick={() => saveHandle()} ref={saveButtonRef}>

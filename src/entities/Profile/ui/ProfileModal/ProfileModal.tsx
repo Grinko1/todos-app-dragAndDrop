@@ -65,6 +65,7 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
     const handleUpdateProfile = useCallback(() => {
         if (validateData()) {
             console.log("data for update profile:", { name, email });
+            // dispatch(loginService({email, password}))
             closeProfileModal()
         }
 

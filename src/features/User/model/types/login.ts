@@ -8,3 +8,8 @@ export interface SignUpData {
     password: string,
     confirmPassword: string
 }
+export interface LoginSchema {
+    isLoading: boolean,
+    error: string | null | undefined,
+    token: string
+}
