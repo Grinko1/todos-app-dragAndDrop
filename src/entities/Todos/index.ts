@@ -1,4 +1,5 @@
-import { edit } from "./model/slices/todosSlice";
+export { todosService } from "./model/service/todosService";
+
 
 export { getTodosList } from "./model/selectors/getTodos";
 

@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import cls from './Board.module.scss';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { TodosList } from '../TodosList/TodosList';
@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../../../app/store/store';
 import { useSelector } from 'react-redux';
 import { getTodosList } from '../../model/selectors/getTodos';
 import { todosActions } from '../../model/slices/todosSlice';
+import { updateTodoService } from '../../model/service/updateTodoService';
 
 
 
@@ -21,15 +22,24 @@ export const Board = memo((props: BoardProps) => {
     const handleDropEnd = (result: any) => {
         const { destination, source } = result
 
+        const coordinates = {
+            fromList: Number(source.droppableId),
+            toList: Number(destination.droppableId),
+            fromIndex: source.index,
+            toIndex: destination.index
+        }
+
+        console.log(typeof coordinates.toList);
+        const updatedTodo = todoList[coordinates.fromList].todos[coordinates.fromIndex]
         if (destination) {
-            dispatch(todosActions.moveCard({
-                fromList: Number(source.droppableId),
-                toList: Number(destination.droppableId),
-                fromIndex: source.index,
-                toIndex: destination.index
-            }))
+
+            dispatch(todosActions.moveCard(coordinates))
+            dispatch(updateTodoService({ todo: updatedTodo, index: coordinates.toList }))
+
+
         }
     }
+
 
     useEffect(() => {
         if (todoList[0].todos.length > 0) {

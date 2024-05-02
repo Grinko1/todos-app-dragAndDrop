@@ -7,12 +7,18 @@ import { useTheme } from "./app/theme"
 import { LoginModal, SignUpModal } from "./features/User"
 import { getModals } from "./entities/ModalsToggler"
 import { ProfileModal } from "./entities/Profile/ui/ProfileModal/ProfileModal"
+import { useEffect } from "react"
+import { useAppDispatch } from "./app/store/store"
+import { todosService } from "./entities/Todos"
 
 
 const App = () => {
     const { editTodoModal, newTodoModal, profileModal, loginModal, signUpModal } = useSelector(getModals)
     const { theme } = useTheme();
-
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(todosService())
+    }, [])
 
     return (
         <div className={`App ${theme}`}>

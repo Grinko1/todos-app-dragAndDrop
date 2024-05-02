@@ -1,6 +1,6 @@
 export interface TodosSchema {
-    loading: boolean;
-    error: string;
+    isLoading: boolean;
+    error: string | null | undefined;
     todoList: TodoList[];
 }
 export interface TodoList {
@@ -11,4 +11,5 @@ export interface TodoList {
 export interface Todo {
     id: number,
     title: string
+    status?: string
 }

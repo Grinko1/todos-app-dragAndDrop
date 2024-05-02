@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { TodosSchema } from '../types/todo'
+import { todosService } from '../service/todosService'
 
 
 
@@ -14,64 +15,21 @@ export const edit = {
 
 const initialState: TodosSchema =
 {
-    loading: false,
+    isLoading: false,
     error: "",
     todoList: [
         {
             title: 'Задачи', todos: [
 
-                { id: 2, title: "two task" },
-                { id: 3, title: "three task" },
-                { id: 4, title: "four task" },
-                { id: 12, title: "two task" },
-                { id: 13, title: "three task" },
-                { id: 14, title: "four task" },
-                { id: 22, title: "two task" },
-                { id: 23, title: "three task" },
-                { id: 24, title: "four task" },
-                { id: 32, title: "two task" },
-                { id: 33, title: "three task" },
-                { id: 34, title: "four task" },
-                { id: 42, title: "two task" },
-                { id: 43, title: "three task" },
-                { id: 44, title: "four task" },
-                { id: 52, title: "two task" },
-                { id: 53, title: "three task" },
-                { id: 54, title: "four task" },
-                { id: 62, title: "two task" },
-                { id: 63, title: "three task" },
-                { id: 64, title: "four task" },
-                { id: 72, title: "two task" },
-                { id: 73, title: "three task" },
-                { id: 74, title: "four task" },
-                { id: 82, title: "two task" },
-                { id: 83, title: "three task" },
-                { id: 84, title: "four task" },
-                { id: 92, title: "two task" },
-                { id: 93, title: "three task" },
-                { id: 94, title: "four task" },
-                { id: 21, title: "two task" },
-                { id: 31, title: "three task" },
-                { id: 41, title: "four task" },
-                { id: 102, title: "two task" },
-                { id: 103, title: "three task" },
-                { id: 104, title: "four task" },
-                { id: 112, title: "two task" },
-                { id: 113, title: "three task" },
-                { id: 114, title: "four task" },
-                { id: 122, title: "two task" },
-                { id: 123, title: "three task" },
-                { id: 124, title: "four task" },
-                { id: 132, title: "two task" },
-                { id: 133, title: "three task" },
-                { id: 134, title: "four task" },
-
+                { id: 10002, title: "two mock task" },
+                { id: 10003, title: "three mock task" },
+                { id: 10004, title: "four mock task" },
             ]
         },
-        { title: 'В работе', todos: [{ id: 1, title: "one task" },] },
+        { title: 'В работе', todos: [{ id: 10001, title: "one mock task" },] },
         {
-            title: 'Выполненые', todos: [{ id: 6, title: "six task" },
-            { id: 5, title: "five task" }]
+            title: 'Выполненые', todos: [{ id: 10006, title: "six mock task" },
+            { id: 10005, title: "five mocktask" }]
         }
     ]
 
@@ -86,29 +44,94 @@ export const todosSlice = createSlice({
         // LISTS HANDLERS -----------------------
         addNewTodo: (state, { payload }) => {
             { state.todoList[payload.index].todos.push({ id: 1, title: payload.value }) }
-            // localStorage.setItem('@lists', JSON.stringify({ ...state }))
+
         },
         editTodo: (state, { payload }) => {
             state.todoList[edit.listIndex].todos[edit.itemIndex].title = payload
-            // localStorage.setItem('@lists', JSON.stringify({ ...state }))
+
         },
         deleteTodo: (state, { payload }) => {
             { state.todoList[payload.listIndex].todos.splice(payload.index, 1) }
-            // localStorage.setItem('@lists', JSON.stringify(state))
+
         },
-        // DRAG AND DROP HANDLERS -------------
+        // DRAG AND DROP 
         moveCard: (state, { payload }) => {
-            var stateCopy = state
-            var item = state.todoList[payload.fromList].todos[payload.fromIndex]
+            const { fromList, fromIndex, toList, toIndex } = payload;
+            const item = state.todoList[fromList].todos[fromIndex];
 
-            stateCopy.todoList[payload.fromList].todos.splice(payload.fromIndex, 1)
-            stateCopy.todoList[payload.toList].todos.splice(payload.toIndex, 0, item)
+            // Remove item from original list
+            state.todoList[fromList].todos.splice(fromIndex, 1);
 
-            state = stateCopy
-            // localStorage.setItem('@lists', JSON.stringify(state))
+            // Insert item into new list at specified index
+            state.todoList[toList].todos.splice(toIndex, 0, item);
+
+            // Update status of moved todo
+            const status = getStatusFromListIndex(toList);
+            state.todoList[toList].todos[toIndex].status = status;
+
+            //     console.log(state.todoList[payload.fromList].todos[payload.fromIndex]);
+
+            //     var stateCopy = state
+            //     var item = state.todoList[payload.fromList].todos[payload.fromIndex]
+            //     stateCopy.todoList[payload.fromList].todos.splice(payload.fromIndex, 1)
+            //     stateCopy.todoList[payload.toList].todos.splice(payload.toIndex, 0, item)
+
+            //     if (payload.toList === 0) {
+            //         console.log("update todo new status PENDING_STATUS");
+            //     } else if (payload.toList === 1) {
+            //         console.log("update todo new status PROGRESS_STATUS");
+            //     } else {
+            //         console.log("update todo new status COMPLETED_STATUS");
+            //     }
+
+            //     state = stateCopy
+
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(todosService.pending, (state) => {
+                state.error = null;
+                state.isLoading = true;
+            })
+            .addCase(todosService.fulfilled, (state, action) => {
+                state.error = null;
+                state.isLoading = false;
+                console.log(action.payload);
+                action.payload.forEach(todo => {
+                    switch (todo.status) {
+                        case 'PENDING_STATUS':
+                            state.todoList[0].todos.push(todo)
+                            break;
+                        case 'PROGRESS_STATUS':
+                            state.todoList[1].todos.push(todo)
+                            break;
+                        case 'COMPLETED_STATUS':
+                            state.todoList[2].todos.push(todo)
+                            break;
+                        default:
+                            break;
+                    }
+                })
+            })
+            .addCase(todosService.rejected, (state, action) => {
+                state.error = action.payload;
+                state.isLoading = false;
+            })
     }
 })
 
 export const { actions: todosActions } = todosSlice
 export const { reducer: todosReducer } = todosSlice
+const getStatusFromListIndex = (index: number) => {
+    switch (index) {
+        case 0:
+            return 'PENDING_STATUS';
+        case 1:
+            return 'PROGRESS_STATUS';
+        case 2:
+            return 'COMPLETED_STATUS';
+        default:
+            return '';
+    }
+};
