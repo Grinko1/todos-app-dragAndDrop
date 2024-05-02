@@ -1,15 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { TodosSchema } from '../types/todo'
+import { Todo, TodosSchema } from '../types/todo'
 import { todosService } from '../service/todosService'
 
+interface EditType {
+    listIndex: number,
+    itemIndex: number,
+    value: string,
+    updateTodo: Todo | null
+}
 
 
-
-export const edit = {
+export const edit: EditType = {
     listIndex: 0,
     itemIndex: 0,
     value: '',
-    updateTodo: {}
+    updateTodo: null
 }
 
 
@@ -97,7 +102,7 @@ export const todosSlice = createSlice({
             .addCase(todosService.fulfilled, (state, action) => {
                 state.error = null;
                 state.isLoading = false;
-                console.log(action.payload);
+
                 action.payload.forEach(todo => {
                     switch (todo.status) {
                         case 'PENDING_STATUS':

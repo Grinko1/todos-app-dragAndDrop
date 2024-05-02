@@ -1,37 +1,45 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ThunkConfig } from "../../../../app/store/stateSchema";
 import { Todo } from "../types/todo";
+import { ThunkConfig } from "../../../../app/store/stateSchema";
+import { mapStatus } from "../utils/mapTodoStatus";
 
 
-interface UpdateTodoProps {
-    todo: Todo,
+export interface UpdateTodoProps {
+    title: string,
     index?: number
 }
 
-export const updateTodoService = createAsyncThunk<
+export const addTodoService = createAsyncThunk<
     Todo,
     UpdateTodoProps,
     ThunkConfig<string>
 >(
-    'todos/updateTodo',
+    'todos/addTodo',
     async (data, thunkApi) => {
         const { extra, dispatch, rejectWithValue, getState } = thunkApi;
-        let updatedTodo = { ...data.todo }
+
+        const id = localStorage.getItem("userId")
+        let newTodo = {
+            title: data.title, status: '',
+            userId: id
+        }
+
+        console.log(mapStatus(2, { id: 1, title: "dsf", status: "", }));
 
         if (data.index !== null || data.index !== undefined) {
             if (data.index === 0) {
-                updatedTodo.status = 'PENDING_STATUS'
+                newTodo.status = 'PENDING_STATUS'
             } else if (data.index === 1) {
-                updatedTodo.status = 'PROGRESS_STATUS';
+                newTodo.status = 'PROGRESS_STATUS';
             } else if (data.index === 2) {
-                updatedTodo.status = 'COMPLETED_STATUS';
+                newTodo.status = 'COMPLETED_STATUS';
 
             }
         }
 
-        const id = localStorage.getItem("userId")
+
         try {
-            const response = await extra.api.patch(`/api/user/${id}/todos/${data.todo.id}`, updatedTodo);
+            const response = await extra.api.post(`/api/user/${id}/todos`, newTodo);
             if (!response.data) {
                 throw new Error();
             }

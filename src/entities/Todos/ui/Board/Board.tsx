@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import cls from './Board.module.scss';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { TodosList } from '../TodosList/TodosList';
@@ -28,8 +28,6 @@ export const Board = memo((props: BoardProps) => {
             fromIndex: source.index,
             toIndex: destination.index
         }
-
-        console.log(typeof coordinates.toList);
         const updatedTodo = todoList[coordinates.fromList].todos[coordinates.fromIndex]
         if (destination) {
 

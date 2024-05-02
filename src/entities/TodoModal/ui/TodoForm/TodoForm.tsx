@@ -25,7 +25,6 @@ export const TodoForm = memo((props: TodoFormProps) => {
         }
     };
     const saveHandle = useCallback((index: number) => {
-        console.log("saveHandle", value, index);
         onSave(value, index,)
     }, [value])
     return (
