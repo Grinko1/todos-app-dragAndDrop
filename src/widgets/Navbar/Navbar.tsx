@@ -37,9 +37,9 @@ export const Navbar = memo((props: NavbarProps) => {
 
         <div className={cls.Navbar}>
             <div className={cls.leftPart}>
-                <button onClick={openNewItemModal}>
+                {name && <button onClick={openNewItemModal}>
                     Новая задача
-                </button>
+                </button>}
             </div>
             <div className={cls.rightPart}>
 

@@ -102,22 +102,24 @@ export const todosSlice = createSlice({
             .addCase(todosService.fulfilled, (state, action) => {
                 state.error = null;
                 state.isLoading = false;
+                if (state.todoList[0].todos.length + state.todoList[0].todos.length + state.todoList[0].todos.length === 0) {
+                    action.payload.forEach(todo => {
+                        switch (todo.status) {
+                            case 'PENDING_STATUS':
+                                state.todoList[0].todos.push(todo)
+                                break;
+                            case 'PROGRESS_STATUS':
+                                state.todoList[1].todos.push(todo)
+                                break;
+                            case 'COMPLETED_STATUS':
+                                state.todoList[2].todos.push(todo)
+                                break;
+                            default:
+                                break;
+                        }
+                    })
+                }
 
-                action.payload.forEach(todo => {
-                    switch (todo.status) {
-                        case 'PENDING_STATUS':
-                            state.todoList[0].todos.push(todo)
-                            break;
-                        case 'PROGRESS_STATUS':
-                            state.todoList[1].todos.push(todo)
-                            break;
-                        case 'COMPLETED_STATUS':
-                            state.todoList[2].todos.push(todo)
-                            break;
-                        default:
-                            break;
-                    }
-                })
             })
             .addCase(todosService.rejected, (state, action) => {
                 state.error = action.payload;

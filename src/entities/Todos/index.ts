@@ -1,7 +1,9 @@
+export { getTodosQtt } from "./model/selectors/getTodos";
+
 export { todosService } from "./model/service/todosService";
 
 
-export { getTodosList } from "./model/selectors/getTodos";
+export { getTodosList, getTodosLoading } from "./model/selectors/getTodos";
 
 export { todosActions, todosReducer, edit } from "./model/slices/todosSlice";
 

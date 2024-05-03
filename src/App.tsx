@@ -1,34 +1,45 @@
 
 import { useSelector } from "react-redux"
 import { Board } from "./entities/Todos/ui/Board/Board"
-import { EditTodoModal, NewTodoModal } from "./entities/TodoModal"
 import { Navbar } from "./widgets/Navbar/Navbar"
 import { useTheme } from "./app/theme"
-import { LoginModal, SignUpModal } from "./features/User"
-import { getModals } from "./entities/ModalsToggler"
-import { ProfileModal } from "./entities/Profile/ui/ProfileModal/ProfileModal"
+import { ModalsToggler, getModals, modalActions } from "./entities/ModalsToggler"
 import { useEffect } from "react"
 import { useAppDispatch } from "./app/store/store"
-import { todosService } from "./entities/Todos"
+import { getTodosQtt, todosService } from "./entities/Todos"
+import { getProfile } from "./entities/Profile"
 
 
 const App = () => {
-    const { editTodoModal, newTodoModal, profileModal, loginModal, signUpModal } = useSelector(getModals)
+    const { loginModal } = useSelector(getModals)
     const { theme } = useTheme();
+    const { name, email } = useSelector(getProfile)
+    const todoLength = useSelector(getTodosQtt)
+
+    const isAuth = !!name && !!email
+
+
+    console.log("App isAuth", isAuth, "loginModal", loginModal);
+
     const dispatch = useAppDispatch()
+
     useEffect(() => {
-        dispatch(todosService())
-    }, [])
+        if (isAuth && todoLength === 0) {
+            console.log("loading");
+            dispatch(todosService())
+        }
+        else if (isAuth === false && loginModal === false) {
+            dispatch(modalActions.toggleLoginModal())
+        }
+
+    }, [isAuth, todoLength])
+
 
     return (
         <div className={`App ${theme}`}>
-            {editTodoModal && <EditTodoModal />}
-            {newTodoModal && <NewTodoModal />}
-            {profileModal && <ProfileModal />}
-            {loginModal && <LoginModal />}
-            {signUpModal && <SignUpModal />}
+            <ModalsToggler />
             <Navbar />
-            <Board />
+            {isAuth && <Board />}
         </div>
     )
 }

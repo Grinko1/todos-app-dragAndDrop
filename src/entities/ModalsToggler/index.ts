@@ -1,3 +1,5 @@
+export { ModalsToggler } from "./ui/ModalsToggler"
+
 export { getModals } from "./model/selectors/getModals"
 
 
