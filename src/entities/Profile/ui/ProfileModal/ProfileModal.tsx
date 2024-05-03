@@ -9,6 +9,7 @@ import { Modal } from '../../../../shared/ui/Modal/Modal';
 import { modalActions } from '../../../ModalsToggler';
 import { Input } from '../../../../shared/ui/Input/Input';
 import { getProfile } from '../../model/selectors/getProfile';
+import { updateProfile } from '../../model/service/updateProfile';
 
 
 interface ProfileModalProps {
@@ -66,6 +67,7 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
     const handleUpdateProfile = useCallback(() => {
         if (validateData()) {
             console.log("data for update profile:", { name, email });
+            dispatch(updateProfile({ email, name }))
             // dispatch(loginService({email, password}))
             closeProfileModal()
         }

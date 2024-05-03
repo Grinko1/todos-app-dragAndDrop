@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProfileSchema } from "../types/profile";
+import { updateProfile } from "../service/updateProfile";
 
 
 
@@ -36,6 +37,23 @@ export const profileSlice = createSlice({
             localStorage.setItem('@profile', JSON.stringify(payload))
         }
 
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(updateProfile.pending, (state) => {
+                state.error = null;
+                state.isLoading = true;
+            })
+            .addCase(updateProfile.fulfilled, (state) => {
+                state.error = null;
+                state.isLoading = false;
+
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
+                state.error = action.payload;
+                state.isLoading = false;
+
+            })
     }
 })
 

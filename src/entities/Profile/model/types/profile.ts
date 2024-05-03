@@ -1,4 +1,3 @@
-import { Theme } from "../../../../app/theme";
 
 export interface ProfileSchema {
     profile: Profile,

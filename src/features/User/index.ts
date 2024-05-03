@@ -8,4 +8,4 @@ export { SignUpModal } from "./ui/signUp/SignUpModal/SignUpModal";
 
 export { LoginModal } from "./ui/login/LoginModal/LoginModal";
 
-export { type LoginSchema } from './model/types/login';
+export { type LoginSchema, type LoginResponse } from './model/types/login';

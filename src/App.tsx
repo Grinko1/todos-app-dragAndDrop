@@ -17,6 +17,7 @@ const App = () => {
     const todoLength = useSelector(getTodosQtt)
 
     const isAuth = !!name && !!email
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
