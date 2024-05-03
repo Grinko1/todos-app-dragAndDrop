@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import cls from './ModalsToggler.module.scss';
 import { EditTodoModal, NewTodoModal } from '../../TodoModal';
 import { ProfileModal } from '../../Profile/ui/ProfileModal/ProfileModal';
 import { LoginModal, SignUpModal } from '../../../features/User';

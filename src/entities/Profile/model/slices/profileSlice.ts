@@ -8,8 +8,10 @@ import { ProfileSchema } from "../types/profile";
 
 const localStorageProfile = localStorage.getItem('@profile')
 
-export const initialState: ProfileSchema =
-    localStorageProfile
+export const initialState: ProfileSchema = {
+    isLoading: false,
+    error: null,
+    profile: localStorageProfile
         ?
         JSON.parse(localStorageProfile)
         :
@@ -17,16 +19,20 @@ export const initialState: ProfileSchema =
             id: null,
             name: "",
             email: "",
-        }
+        },
+}
+
+
+
 
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
     reducers: {
         save: (state, { payload }) => {
-            state.id = payload.id
-            state.name = payload.name
-            state.email = payload.email
+            state.profile.id = payload.id
+            state.profile.name = payload.name
+            state.profile.email = payload.email
             localStorage.setItem('@profile', JSON.stringify(payload))
         }
 

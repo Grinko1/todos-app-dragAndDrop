@@ -18,8 +18,8 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
     const { } = props
     const { email: curEmail, name: curName } = useSelector(getProfile)
 
-    const [name, setName] = useState<string>(curEmail);
-    const [email, setEmail] = useState<string>(curName);
+    const [name, setName] = useState<string>(curName);
+    const [email, setEmail] = useState<string>(curEmail);
 
 
     const [nameError, setNameError] = useState<string | null>(null);
@@ -55,13 +55,14 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
     const handleNameValue = useCallback((value: string) => {
         setName(value);
         setNameError(null);
-    }, [nameError]);
+    }, [nameError, name]);
 
     const handleEmailValue = useCallback((value: string) => {
         setEmail(value);
         setEmailError(null);
-    }, []);
+    }, [email, emailError]);
 
+    console.log(emailError, nameError);
     const handleUpdateProfile = useCallback(() => {
         if (validateData()) {
             console.log("data for update profile:", { name, email });

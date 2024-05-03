@@ -17,15 +17,10 @@ const App = () => {
     const todoLength = useSelector(getTodosQtt)
 
     const isAuth = !!name && !!email
-
-
-    console.log("App isAuth", isAuth, "loginModal", loginModal);
-
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         if (isAuth && todoLength === 0) {
-            console.log("loading");
             dispatch(todosService())
         }
         else if (isAuth === false && loginModal === false) {
