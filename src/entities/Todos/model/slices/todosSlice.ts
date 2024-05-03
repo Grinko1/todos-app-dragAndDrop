@@ -43,10 +43,10 @@ const initialState: TodosSchema =
 
 
 export const todosSlice = createSlice({
-    name: 'lists',
+    name: 'todos',
     initialState,
     reducers: {
-        // LISTS HANDLERS -----------------------
+        // TODOS HANDLERS
         addNewTodo: (state, { payload }) => {
             { state.todoList[payload.index].todos.push({ id: 1, title: payload.value }) }
 
@@ -73,24 +73,6 @@ export const todosSlice = createSlice({
             // Update status of moved todo
             const status = getStatusFromListIndex(toList);
             state.todoList[toList].todos[toIndex].status = status;
-
-            //     console.log(state.todoList[payload.fromList].todos[payload.fromIndex]);
-
-            //     var stateCopy = state
-            //     var item = state.todoList[payload.fromList].todos[payload.fromIndex]
-            //     stateCopy.todoList[payload.fromList].todos.splice(payload.fromIndex, 1)
-            //     stateCopy.todoList[payload.toList].todos.splice(payload.toIndex, 0, item)
-
-            //     if (payload.toList === 0) {
-            //         console.log("update todo new status PENDING_STATUS");
-            //     } else if (payload.toList === 1) {
-            //         console.log("update todo new status PROGRESS_STATUS");
-            //     } else {
-            //         console.log("update todo new status COMPLETED_STATUS");
-            //     }
-
-            //     state = stateCopy
-
         },
     },
     extraReducers: (builder) => {
@@ -130,6 +112,7 @@ export const todosSlice = createSlice({
 
 export const { actions: todosActions } = todosSlice
 export const { reducer: todosReducer } = todosSlice
+
 const getStatusFromListIndex = (index: number) => {
     switch (index) {
         case 0:

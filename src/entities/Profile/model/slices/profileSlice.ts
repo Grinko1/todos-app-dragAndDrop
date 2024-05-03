@@ -3,10 +3,6 @@ import { ProfileSchema } from "../types/profile";
 import { updateProfile } from "../service/updateProfile";
 
 
-
-
-
-
 const localStorageProfile = localStorage.getItem('@profile')
 
 export const initialState: ProfileSchema = {
@@ -22,8 +18,6 @@ export const initialState: ProfileSchema = {
             email: "",
         },
 }
-
-
 
 
 export const profileSlice = createSlice({

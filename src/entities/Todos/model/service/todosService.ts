@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Todo } from "../types/todo";
 import { ThunkConfig } from "../../../../app/store/stateSchema";
-import { getProfile } from "../../../Profile/model/selectors/getProfile";
 
 
 

@@ -63,16 +63,11 @@ export const ProfileModal = memo((props: ProfileModalProps) => {
         setEmailError(null);
     }, [email, emailError]);
 
-    console.log(emailError, nameError);
     const handleUpdateProfile = useCallback(() => {
         if (validateData()) {
-            console.log("data for update profile:", { name, email });
             dispatch(updateProfile({ email, name }))
-            // dispatch(loginService({email, password}))
             closeProfileModal()
         }
-
-
     }, [name, email])
 
 

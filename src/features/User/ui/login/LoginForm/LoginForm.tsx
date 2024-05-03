@@ -24,7 +24,7 @@ export const LoginForm = memo((props: LoginFormProps) => {
     const [emailError, setEmailError] = useState<string | null>(null);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const saveButtonRef = useRef<HTMLButtonElement>(null);
-    const { isLoading, error: fetchError } = useSelector(getLoginInfo)
+    const { error: fetchError } = useSelector(getLoginInfo)
 
 
     const handleEmailValue = useCallback((value: string) => {

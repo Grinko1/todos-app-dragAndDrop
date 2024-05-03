@@ -26,7 +26,7 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
     const saveButtonRef = useRef<HTMLButtonElement>(null);
-    const { isLoading, error: fetchError } = useSelector(getLoginInfo)
+    const { error: fetchError } = useSelector(getLoginInfo)
 
 
     const dispatch = useAppDispatch()
@@ -90,10 +90,6 @@ export const SignUpForm = memo((props: SignUpFormProps) => {
     const saveHandle = useCallback(() => {
         if (validate()) {
             onSave({ name, email, password })
-            // setPassword("")
-            // setEmail("")
-            // setPassword("")
-            // setConfirmPassword("")
         }
     }, [email, password, name])
 
