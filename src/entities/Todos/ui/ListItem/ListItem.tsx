@@ -7,6 +7,7 @@ import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { Todo } from '../../model/types/todo';
 import { todosActions } from '../../model/slices/todosSlice';
 import { modalActions } from '../../../ModalsToggler';
+import { deleteTodoService } from '../../model/service/deleteTodoService';
 
 
 interface ListItemProps {
@@ -21,9 +22,13 @@ export const ListItem = memo((props: ListItemProps) => {
 
     const handleDeleteItem = (listIndex: number, index: number) => {
         dispatch(todosActions.deleteTodo({ listIndex, index }))
+        //@ts-ignore
+        dispatch(deleteTodoService(listItem.id))
+        console.log("delete todo", listItem.id);
     }
 
     const openEditModal = () => {
+        console.log(listItem.status);
         dispatch(modalActions.editModal({ listIndex, index, value: listItem.title, updateTodo: listItem }))
     }
     return (

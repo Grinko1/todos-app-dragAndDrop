@@ -4,7 +4,7 @@ import { todosActions } from '../../../Todos';
 import { Modal } from '../../../../shared/ui/Modal/Modal';
 import { TodoForm } from '../TodoForm/TodoForm';
 import { modalActions } from '../../../ModalsToggler';
-import { UpdateTodoProps, addTodoService } from '../../../Todos/model/service/addTodoService';
+import { addTodoService } from '../../../Todos/model/service/addTodoService';
 
 interface NewTodoModalProps {
 }

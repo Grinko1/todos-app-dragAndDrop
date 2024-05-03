@@ -43,7 +43,8 @@ export const addTodoService = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
-            console.log(`response /api/user/${id}/todos`, response);
+            console.log(`%c${'response add new todo:'}`, `color: ${'#2fa827'}`, response);
+
 
 
 

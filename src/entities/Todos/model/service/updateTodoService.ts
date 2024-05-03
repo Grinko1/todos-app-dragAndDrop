@@ -17,6 +17,7 @@ export const updateTodoService = createAsyncThunk<
     async (data, thunkApi) => {
         const { extra, dispatch, rejectWithValue, getState } = thunkApi;
         let updatedTodo = { ...data.todo }
+        console.log(updatedTodo);
 
         if (data.index !== null || data.index !== undefined) {
             if (data.index === 0) {
@@ -29,13 +30,14 @@ export const updateTodoService = createAsyncThunk<
             }
         }
 
+        console.log(updatedTodo);
         const id = localStorage.getItem("userId")
         try {
             const response = await extra.api.patch(`/api/user/${id}/todos/${data.todo.id}`, updatedTodo);
             if (!response.data) {
                 throw new Error();
             }
-            console.log(`response /api/user/${id}/todos`, response);
+            console.log(`%c${'response update todo:'}`, `color: ${'#2fa827'}`, response);
 
 
 
