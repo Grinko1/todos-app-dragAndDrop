@@ -20,7 +20,7 @@ export const initialState: ProfileSchema =
         }
 
 export const profileSlice = createSlice({
-    name: 'config',
+    name: 'profile',
     initialState,
     reducers: {
         save: (state, { payload }) => {

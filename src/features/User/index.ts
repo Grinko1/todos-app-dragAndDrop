@@ -1,3 +1,5 @@
+export { logoutService } from "./model/service/logoutService";
+
 export { loginActions, loginReducer } from "./model/slice/loginSlice";
 
 export { loginService } from "./model/service/loginService";

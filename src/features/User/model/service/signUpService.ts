@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ThunkConfig } from "../../../../app/store/stateSchema";
 import { LoginData, LoginResponse, SignUpData } from "../types/login";
 import { profileActions } from "../../../../entities/Profile";
+import { todosService } from "../../../../entities/Todos";
 
 
 
@@ -22,11 +23,12 @@ export const signUpService = createAsyncThunk<
             if (!response.data) {
                 throw new Error();
             }
-            console.log("response /auth/sign-up", response);
+            console.log(`%c${'response sign up:'}`, `color: ${'#2fa827'}`, response);
 
-            localStorage.setItem("TOKEN", `Bearer ${response.data.token}`);
-            localStorage.setItem("userId", response.data.user.id);
+            localStorage.setItem("@token", `Bearer ${response.data.token}`);
+            localStorage.setItem("@userId", response.data.user.id);
             dispatch(profileActions.save(response.data.user))
+            dispatch(todosService())
             return response.data;
         } catch (e) {
             //@ts-ignore

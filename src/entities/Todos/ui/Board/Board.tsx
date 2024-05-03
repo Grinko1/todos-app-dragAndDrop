@@ -34,8 +34,6 @@ export const Board = memo((props: BoardProps) => {
 
             dispatch(todosActions.moveCard(coordinates))
             dispatch(updateTodoService({ todo: updatedTodo, index: coordinates.toList }))
-
-
         }
     }
 

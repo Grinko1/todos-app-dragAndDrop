@@ -13,7 +13,7 @@ export const deleteTodoService = createAsyncThunk<
         const { extra, dispatch, rejectWithValue, getState } = thunkApi;
 
 
-        const id = localStorage.getItem("userId")
+        const id = localStorage.getItem("@userId")
         try {
             const response = await extra.api.delete(`/api/user/${id}/todos/${todoId}`);
             if (!response.data) {

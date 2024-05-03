@@ -24,11 +24,9 @@ export const ListItem = memo((props: ListItemProps) => {
         dispatch(todosActions.deleteTodo({ listIndex, index }))
         //@ts-ignore
         dispatch(deleteTodoService(listItem.id))
-        console.log("delete todo", listItem.id);
     }
 
     const openEditModal = () => {
-        console.log(listItem.status);
         dispatch(modalActions.editModal({ listIndex, index, value: listItem.title, updateTodo: listItem }))
     }
     return (

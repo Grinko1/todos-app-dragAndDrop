@@ -18,13 +18,13 @@ export const addTodoService = createAsyncThunk<
     async (data, thunkApi) => {
         const { extra, dispatch, rejectWithValue, getState } = thunkApi;
 
-        const id = localStorage.getItem("userId")
+        const id = localStorage.getItem("@userId")
         let newTodo = {
             title: data.title, status: '',
             userId: id
         }
 
-        console.log(mapStatus(2, { id: 1, title: "dsf", status: "", }));
+
 
         if (data.index !== null || data.index !== undefined) {
             if (data.index === 0) {

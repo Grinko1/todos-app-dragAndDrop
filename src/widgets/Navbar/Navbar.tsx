@@ -6,6 +6,7 @@ import { Theme, useTheme } from '../../app/theme';
 import { FaMoon, FaRegMoon, FaRegUser } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { getProfile } from '../../entities/Profile/model/selectors/getProfile';
+import { logoutService } from '../../features/User';
 
 interface NavbarProps {
 }
@@ -27,6 +28,10 @@ export const Navbar = memo((props: NavbarProps) => {
     const openLoginModal = useCallback(() => {
         dispatch(modalActions.toggleLoginModal())
     }, [])
+    const logoutHandler = useCallback(() => {
+        dispatch(logoutService())
+        window.location.reload()
+    }, [dispatch, name])
 
     return (
 
@@ -47,7 +52,7 @@ export const Navbar = memo((props: NavbarProps) => {
                     {theme === Theme.DARK ? <FaRegMoon size={24} /> : <FaMoon size={24} />}
                 </button>
 
-                {name ? <button onClick={openLoginModal}>
+                {name ? <button onClick={logoutHandler}>
                     Выйти
                 </button> :
                     <button onClick={openLoginModal}>

@@ -31,7 +31,7 @@ export const updateTodoService = createAsyncThunk<
         }
 
         console.log(updatedTodo);
-        const id = localStorage.getItem("userId")
+        const id = localStorage.getItem("@userId")
         try {
             const response = await extra.api.patch(`/api/user/${id}/todos/${data.todo.id}`, updatedTodo);
             if (!response.data) {

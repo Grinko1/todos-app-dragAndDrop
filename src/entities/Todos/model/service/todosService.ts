@@ -15,7 +15,7 @@ export const todosService = createAsyncThunk<
     async (signUpData, thunkApi) => {
         const { extra, dispatch, rejectWithValue, getState } = thunkApi;
 
-        const id = localStorage.getItem("userId")
+        const id = localStorage.getItem("@userId")
         try {
             const response = await extra.api.get(`/api/user/${id}/todos`);
             if (!response.data) {

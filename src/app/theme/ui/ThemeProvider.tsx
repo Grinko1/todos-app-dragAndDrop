@@ -13,7 +13,7 @@ const ThemeProvider = (props: ThemeProviderProps) => {
     const { theme: defaultTheme } = { theme: fallbackTheme };
     const [isThemeInited, setThemeInited] = useState(false);
 
-    const [theme, setTheme] = useState<Theme>(initialTheme || fallbackTheme || Theme.LIGHT);
+    const [theme, setTheme] = useState<Theme>(initialTheme || fallbackTheme || Theme.DARK);
     useEffect(() => {
         if (!isThemeInited && defaultTheme) {
             // @ts-ignore
